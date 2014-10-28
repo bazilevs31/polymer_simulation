@@ -1,0 +1,34 @@
+Create and equilibrate melt in MD.
+
+To make it work:
+
+1) install Lammps MD package
+2) brush through files and find a mpirun command and change it to appropriate
+3) also code uses a moltemplate package to add angles and dihedrals
+
+please install moltemplate and add it to the path
+
+export PATH="$PATH:$HOME/mylammps/tools/moltemplate/src"
+
+type 'bash create_melt.sh'
+or just './create_melt.sh'
+
+
+
+What scripts do in a nutshell:
+
+1) create a polymer melt, consisting of atoms 
+(parameters should be specified in the create_melt.sh file)
+
+2) then the melt is equilibrated by means of Lammps MD package. Using alghorithms proposed by : 
+http://www.sciencedirect.com/science/article/pii/S0009261411015508
+
+( the result file is a lammps .data file, which has only atoms + bonds )
+
+3) then the .data file is transformed into a regular lammps file which includes angles and dihedrals as well
+this is done by lj_without_to_real_with.sh
+also units are switched from lj to real
+
+4) then a short nve lammps is performed 
+the result should be a well equilibrated melt,
+with matching RDF file, 
