@@ -106,7 +106,7 @@ for z in dots_z[0:-1]:
 			# print count
 			# print " x = ", x
 
-#get indexes of atoms and then assign the bffactor just for the index of the atom
+#get indices of atoms and then assign the bffactor just for the index of the atom
 #in this case there is no need to assemble the parts into one big atomselection res
 # to do that just get the indices of atoms in ar_x
 # then just loop for atoms in u and assign bfactor of this atoms

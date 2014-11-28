@@ -17,7 +17,8 @@ def get_bonds(u):
 
 
 
-filename='../polymer_300'
+# filename='../polymer_300'
+filename='../coor_files/result'
 d = LAMMPSData(filename+".data")
 d.writePSF(filename+".psf")
 d.writePDB(filename+".pdb")

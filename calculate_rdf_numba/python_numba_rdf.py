@@ -1,11 +1,23 @@
+
+# Purpose: Calculate radial distribution function  using Python and Numba library
+# Author:  Triandafilidi Vasiliy , MSc student at CHBE UBC, Vancouver
+# e-mail:  vtriandafilidi(at)chbe(dot)ubc(dot)ca
+# Syntax:  python  python_numba_rdf.py
+# Requires: poly.psf poly.pdb, numba library 
+
+# Theory:
+# http://en.wikipedia.org/wiki/Radial_distribution_function
+# 
+# 
+# Copyright (c) 2014 Vasiliy Triandafilidi
+# Released under the GNU Public Licence, v2 or any higher version 
+
 from numba import jit, autojit,njit
 import matplotlib.pyplot as plt 
-
 import math
-
 from MDAnalysis import *
-
 import numpy as np 
+
 
 
 

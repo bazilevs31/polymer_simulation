@@ -59,7 +59,7 @@ def get_eigen_vector(u):
     Qab = np.zeros((3, 3))
     count = 0.
     nframes = len(u.trajectory)
-    for ts in u.trajectory[nframes - 400:-1]:
+    for ts in u.trajectory[nframes - 10:-1]:
         # print "frame is = ", ts.frame
         bondlist = u.bonds
         Qab += get_qab(get_bond_list(bondlist))
@@ -105,7 +105,8 @@ def get_order_param(u):
 
 
 # u = Universe("shortchain_polymer.psf", "trajectory_shortchain.xtc")
-u = Universe("poly_without_long.psf", "trajectory_shortchain.xtc")
+# u = Universe("poly_without_long.psf", "trajectory_shortchain.xtc")
+u = Universe("../coor_files/poly.psf", "../coor_files/traj_skip10.dcd")
 
 Order_array = get_order_param(u)
 
