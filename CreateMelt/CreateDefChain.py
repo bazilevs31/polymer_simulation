@@ -1,9 +1,9 @@
-#!/home/vasiliy/anaconda/bin/python
+#!/usr/bin/env python
+
 from __future__ import print_function
 import numpy as np
 import os
-from argparse import ArgumentParser, ArgumentDefaultsHelpFormatter
-    
+import read_parameters    
 
 class mdmelt():
     """create pd melt, save plot, save npz"""
@@ -42,48 +42,11 @@ class mdmelt():
             f.write('0.85 \n ')
             f.write('1.05 \n')
             f.write('\n')
-def read_parameters():
-    """
-    read parameters from the commandline
-    input 
-    output Nchains, ChainLength
-    """
-    parser = ArgumentParser(description=__doc__,
-                            formatter_class=ArgumentDefaultsHelpFormatter)
-    parser.add_argument("-f", "--file", dest="filename",
-                        type=lambda x: is_valid_file(parser, x),
-                        help="write report to FILE", metavar="FILE")
-    parser.add_argument("-l", 
-                        "--length",
-                        dest="ChainLength", 
-                        default=100, 
-                        type=int, 
-                        help="Chain length")
-    parser.add_argument("-n", 
-                        "--nchains",
-                        dest="Nchains", 
-                        default=120, 
-                        type=int, 
-                        help="Total number of chains")
-    parser.add_argument("-q", "--quiet",
-                        action="store_false", dest="verbose",
-                        default=True,
-                        help="don't print status messages to stdout")
-    args = parser.parse_args()
-    Nchains = args.Nchains
-    ChainLength = args.ChainLength
-    return Nchains, ChainLength
-def is_valid_file(parser, arg):
-    """
-    Check if arg is a valid file 
-    """
-    arg = os.path.abspath(arg)
-    if not os.path.exists(arg):
-        parser.error("The file %s doesn't exist " % arg)
-    else:
-        return arg
+
+
 def main():
-    Nchains, ChainLength = read_parameters()
+    args = read_parameters.read_create_mono()
+    Nchains, ChainLength = args.Nchains, args.ChainLength
     mymelt = mdmelt(Nchains, ChainLength)
     mymelt.write_to_file()
 

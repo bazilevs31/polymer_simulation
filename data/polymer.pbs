@@ -1,0 +1,9 @@
+#!/bin/bash#PBS -S /bin/bash
+#PBS -l pmem=600mb
+#PBS -l nodes=1:ppn=1
+#PBS -l walltime=0:01:00
+#PBS -m bea
+#PBS -M vasiliy.triandafilidi@gmail.com
+
+cd $PBS_O_WORKDIR
+

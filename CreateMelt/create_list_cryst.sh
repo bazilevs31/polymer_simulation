@@ -4,15 +4,9 @@
 #output: <vmd file> <psf file> <dcd file>
 #
 datafile=$1
-dcdfile=$2
-dcdskip=$3
-psffilename=$4
-currentdir=$5
+psffilename=$2
+currentdir=$3
 
-
-outdcd='trajSkipwrap.dcd'
-
-echo "the data file name is $datafile"
 echo "the psf file  is $psffilename"
 echo "currennt dir is $currentdir"
 echo "file is $currentdirvmd_data_to_pdbpsf.tcl "
@@ -20,17 +14,17 @@ echo "file is $currentdirvmd_data_to_pdbpsf.tcl "
 rm $currentdir$outdcd
 
 echo "
-topo readlammpsdata $datafile angle 
-animate write psf $psffilename
-animate read dcd $dcdfile skip $dcdskip waitfor all
-pbc wrap -all
-animate write dcd $currentdir$outdcd waitfor all
+package require topotools
+topo readlammpsdata $datafile.data angle
+animate write psf $psffilename.psf
 exit
+
+
  " > vmd_data_to_pdbpsf.tcl 
 
 # less vmd_data_to_pdbpsf.tcl
 
-vmd -e vmd_data_to_pdbpsf.tcl -nt
+vmd -dispdev text -e  vmd_data_to_pdbpsf.tcl
 
 # rm vmd_data_to_pdbpsf.tcl 
 

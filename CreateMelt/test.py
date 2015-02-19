@@ -1,11 +1,14 @@
+#!/usr/bin/env python
+
+import os
 import argparse
+# modules for readparameters
 
 
 
-parser = argparse.ArgumentParser(description='Create melt def.chain')
-parser.add_argument('integer',metavar='N',type=str,nargs='+',help='some')
-# parser.add_argument('integers', metavar='N', type=int, nargs='+',
-                   # help='an integer for the accumulator')
-
-args = parser.parse_args()
-print(args.accumulate(args.integers))
+parser = argparse.ArgumentParser(description=__doc__,
+                    formatter_class=argparse.ArgumentDefaultsHelpFormatter)
+parser.add_argument("-f", "--psf", dest="psffile", help="Name of the future files, all other files will start \
+                 with FILE", metavar="FILE")
+args=parser.parse_args()
+print args
