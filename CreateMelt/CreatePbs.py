@@ -52,9 +52,10 @@ with open(curdir+"/"+filename, 'w') as f:
         f.write('rm *.pbs.*\n')
         f.write('mv *.data ./figures/\n')
         f.write('mv log.*   ./figures/\n')
+        f.write('AnalyzeChain.py -f %s \n' % pbsname)
     elif args.analyze==True:
         f.write('cp ./figures/polymer_0.8.data ./figures/lammps.data \n')
-        f.write('AnalyzeTrueg2.py simple -f %s \n' % pbsname)
+        f.write('AnalyzeChain.py  -f %s \n' % pbsname)
     else:
         raise ValueError('no input name specified')
 

@@ -10,10 +10,10 @@ def del_end(x):
     """
     delete npz dimension of the file
     """
-    if x[-4:] == '.npz':
-        return ''.join(x.split())[:-4]
-    else:
-        return x
+    return os.path.splitext(x)[0]
+def del_path(x):
+	return os.path.basename(x)
+
 def is_valid_file(parser, arg):
     """
     Check if arg is a valid file 
@@ -33,10 +33,10 @@ def main():
     then use the itertools and plot them, switch to different style by next()
     """
     results = read_parameters.read_plot()
-    files, filenames, name_x, name_y, titlename, boxes, legend = results.files,results.filenames, \
+    files,  name_x, name_y, titlename, boxes, legend = results.collection, \
                 results.name_x, results.name_y , results.titlename,\
                 results.boxes, results.legend
-    filenames = [del_end(x) for x in files]
+    filenames = [del_end(del_path(x)) for x in files]
 
     # filled_markers = (u'o', u'v', u'^', u'<', u'>', u'8', u's', u'p', u'*', u'h', u'H', u'D', u'd')
     lines = [u'D', u'o', u'^', u'>', u's', u'8', u'<', u'>',  u'*',  u'H', u'h', u'p', u'v', u'D', u'd',"-","--","-.",":"]

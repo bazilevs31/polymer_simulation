@@ -128,6 +128,7 @@ def create_hist_chainlength(chainlengths,chaing2s,lmin = 40, lmax = 120, Nbins =
             cryst /= float(kk)
         histogram[li] = cryst
     return bins, histogram
+
 def main():
     args = read_traj_vmd()
     psffile = os.path.splitext(args.psffile)[0]
@@ -135,6 +136,8 @@ def main():
     Nres = len(u.residues)
     frame = []
     g2 = []
+    chainlengths = []
+    chaing2s = []
     res_g2 = 0.
     
     fig = plt.figure()
@@ -143,17 +146,29 @@ def main():
     for ts in u.trajectory[args.startframe:args.endframe:args.trajskip]:
         all_g2 = 0.
         k = 0
+        chainlengths = []
+        chaing2s = []
         frame.append(ts.frame)
         for res in u.residues:
             chords = get_bondlist_coords(res)
             res_g2 = get_chain_crystallinity(chords,4)
             all_g2 += res_g2
+            chainlengths.append(len(res))
+            chaing2s.append(res_g2)
+        chainlengths = np.array(chainlengths)
+        chaing2s = np.array(chaing2s)
+        bins, histogram = create_hist_chainlength(chainlengths,chaing2s)
+        plt.ylim(0,1)
+        im = plt.bar(bins,histogram,10.0)
+        ims.append([im])
+        plt.savefig('hist'+str(ts.frame)+'.png')
+        plt.cla()
         print ("frame %d , g2 = %f" %(ts.frame, all_g2 / float(Nres)))
         g2.append(all_g2 / float(Nres))
     frame = np.array(frame)
     g2 = np.array(g2)
     # os.system("convert -delay ")
-    save_plot(frame,g2,psffile)
+    # save_plot(frame,g2,psffile)
     # plt.plot(frame,g2,'ro-')
     # plt.show()
     # ani.save('dynamic_images.mp4')

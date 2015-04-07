@@ -294,14 +294,25 @@ def is_valid_file(parser, arg):
         return arg
 
 def create_psf(args):
-    """given data file produce psf file, read-eidt dcd file"""
-    psffile = os.path.splitext(args.psffile)[0]
-    datafile = os.path.splitext(args.datafile)[0]
-    curdir = os.getcwd()
-    curdir = curdir+"/"
-    filestring = " ".join(("create_list_cryst.sh ",datafile,psffile,curdir))
-    os.system(filestring)
+    """
+    given data file produce psf file if it doesn't exist yet
+    if it does then use it
+    """
+    if not os.path.exists(os.path.abspath(args.psffile)):
+        print "the %s doesn't exist " % args.psffile
+        print "creating psffile"
+        psffile = os.path.splitext(args.psffile)[0]
+        datafile = os.path.splitext(args.datafile)[0]
+        print "psffile = %s" % psffile
+        print "datafile = %s" % datafile
+        curdir = os.getcwd()
+        curdir = curdir+"/"
+        filestring = " ".join(("create_list_cryst.sh ",datafile,psffile,curdir))
+        os.system(filestring)
+    else:
+        print "the file %s already exists" % args.psffile
     return args
+
 
 def main():
     """main
